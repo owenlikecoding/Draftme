@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Draft me</title>
+</head>
+
+<body>
+    <div>
+        <h1 contenteditable="true">My Draft</h1>
+        <button id="create">Create new person</button>
+        <button id="save">Save Draft</button>
+        <button id="load">Load Draft from last save</button>
+    </div>
+    <div id="rows">
+        <div id="row1">
+            <ol>
+                <li><input type="text" name="" id=""></li>
+                <li><input type="text" name="" id=""></li>
+                <li><input type="text" name="" id=""></li>
+                <li><input type="text" name="" id=""></li>
+                <li><input type="text" name="" id=""></li>
+            </ol>
+        </div>
+    </div>
+    <script>
+        const create = document.getElementById('create');
+        const rows = document.getElementById('rows');
+        const row1 = document.getElementById('row1');
+        var add = document.getElementById('add');
+        create.addEventListener('click', () => {
+            var newRow = document.createElement('div');
+            newRow.innerHTML = row1.innerHTML;
+            rows.appendChild(newRow);
+        });
+        var save = document.getElementById('save');
+        save.addEventListener('click', () => {
+            var data = document.getElementsByTagName('input');
+            var dataArr = [];
+            for (let i = 0; i < data.length; i++) {
+                dataArr.push(data[i].value);
+            }
+            localStorage.setItem('data', JSON.stringify(dataArr));
+        });
+        var load = document.getElementById('load');
+        load.addEventListener('click', () => {
+            var data = JSON.parse(localStorage.getItem('data'));
+            var dataArr = [];
+            for (let i = 0; i < data.length; i++) {
+                dataArr.push(data[i]);
+            }
+            var data = document.getElementsByTagName('input');
+            for (let i = 0; i < data.length; i++) {
+                data[i].value = dataArr[i];
+            }
+        });
+
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Climate+Crisis&family=Inconsolata:wght@300&family=JetBrains+Mono:wght@200;300;400&family=Merriweather:wght@300&family=Montserrat:wght@800&family=Nabla&family=Noto+Sans+JP:wght@100&family=Open+Sans:wght@500;800&family=Orbitron&family=Raleway:ital,wght@0,200;1,400&family=Seymour+One&family=Sigmar+One&family=Source+Code+Pro&family=Unbounded&display=swap');
+
+        /* make rows inline */
+        * {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        #rows {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+
+        body {
+            background-color: #0c0c0c;
+            color: white;
+
+        }
+
+        button {
+            background-color: darkgray;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px;
+
+        }
+
+        input {
+            background-color: #0c0c0c;
+            color: white;
+            border: none;
+            border-bottom: 1px solid white;
+            padding: 10px;
+            margin: 10px;
+            width: 100%;
+        }
+    </style>
+</body>
+
+</html>
